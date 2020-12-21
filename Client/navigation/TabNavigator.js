@@ -16,6 +16,8 @@ import HomeScr from '../views/HomeScr';
 import LoginScr from '../views/LoginScr';
 import SettingsScr from '../views/SettingsScr';
 import ProfileScr from '../views/ProfileScr';
+import SignUpScr from '../views/SignUpScr';
+
 // const Stack = createStackNavigator();
 
 
@@ -25,18 +27,34 @@ const Stack = createStackNavigator();
 
 const TabNavigator = () => {
 
-    const HomeTabs = () => {
+    const HomeStack = () => {
         return (
             <Tab.Navigator>
                 <Tab.Screen
                     name="Landing"
                     component={HomeScr}
-                    
                 />
                 <Tab.Screen
                     name="Profile"
                     component={ProfileScr}
                 />
+                <Tab.Screen
+                    name="Sign Up"
+                    component={SignUpScr}
+                />
+                {/* <Tab.Screen name="Settings" component={SettingsScr} /> */}
+
+            </Tab.Navigator>
+        )
+    }
+    const ProfileStack = () => {
+        return (
+            <Tab.Navigator>
+                <Tab.Screen
+                    name="Profile"
+                    component={ProfileScr}
+                />
+                {/* //client screen */}
                 {/* <Tab.Screen name="Settings" component={SettingsScr} /> */}
 
             </Tab.Navigator>
@@ -61,7 +79,7 @@ const TabNavigator = () => {
                     component={ProfileScr} />
             </Tab.Navigator> */}
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeTabs} />
+                <Stack.Screen name="Home" component={HomeStack} />
                 <Stack.Screen name="Settings" component={SettingsScr} />
             </Stack.Navigator>
         </NavigationContainer>

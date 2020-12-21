@@ -18,17 +18,14 @@ class LoginScr extends Component {
             password: "",
         }
     }
-
-    signUp = async () => {
+    
+    loginIn = async () => {
         // event.preventDefault();
         const { userName, password } = this.state;
 
         { console.log(userName + " " + password) }
     };
 
-    signIn = async () => {
-
-    }
 
     setPassword = (response) => {
         this.setState({
@@ -42,6 +39,8 @@ class LoginScr extends Component {
     };
 
     render() {
+        const {navigation} = this.props;
+
         const { userName, password } = this.state;
         return (
             <View style={styles.container}>
@@ -68,7 +67,7 @@ class LoginScr extends Component {
                 </View>
                 <TouchableOpacity
                     title={'Login'}
-                    onPress={() => this.signUp(userName, password)}
+                    onPress={() => this.loginIn(userName, password)}
                     style={styles.loginButton}
                 >
                     <Text>Login</Text>

@@ -7,17 +7,16 @@ import {
     View, 
     TextInput,
     Image,
-    Touc
+    Button
 } from 'react-native';
 
-const HomeScr = () => {
-
-
+const HomeScr = ({navigation}) => {
     
         return (
             <View style={styles.container}>
                 <Text style={styles.title1}>Welcome to Hook</Text>
                 <Text style={styles.title1}>Test</Text>
+                <Button title="Here" onPress={()=> navigation.navigate("Settings")}><Text>"Here"</Text></Button>
                 <Text style={styles.title1}>Hello World</Text>
             </View>
         );
