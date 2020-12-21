@@ -1,26 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { render } from 'react-dom';
 import { StyleSheet, Text, View } from 'react-native';
+import Login from './views/LoginScr';
+import TabNavigator from './navigation/TabNavigator'
 
-class App extends Component {
-  render(){
+
+const App = () => {
+ 
   return (
     <View style={styles.container}>
-      <Text>Login Now</Text>
-      
-      {/* <StatusBar style="auto" /> */}
+      <TabNavigator>
+      {/* <Login/> */}
+      </TabNavigator>
     </View>
   );
-  }
+  
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
 });
 

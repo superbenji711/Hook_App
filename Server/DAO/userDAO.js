@@ -11,20 +11,26 @@ exports.create = async (userInput) => { //creates a user based of prop sent
 exports.getAll = async () => await User.find({}).exec(); //returns all users
 
 exports.get = async (id) => {
-    const user = await (await User.findById(id)).exec();
+    const user = await (await User.findById(id)).populate({
+        comments: 'users' //unsure look at documentation
+    }).exec();
     if(!user) throw  "user does not exits";
 
     return user;
 }
 
-exports.getByUsername = async (username) => {
-    const user = await User.findOne({ username }).exec();
-    if (!user) throw  "user does not exits";
-  
-    return user;
-};
+// exports.update = async (id, updatedData) => {
+    
+// }
 
-exports.update = async (id) => {
+// exports.getByUsername = async (username) => {
+//     const user = await User.findOne({ username }).exec();
+//     if (!user) throw  "user does not exits";
+  
+//     return user;
+// };
+
+exports.delete = async (id) => {
     const user = await User.findByIdAndDelete(id);
     if(!user) throw "no user to delete";
     return user;
