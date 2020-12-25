@@ -10,13 +10,18 @@ import {
     Button
 } from 'react-native';
 
+import { connect } from 'getstream';
+
+import MainFeed from '../components/MainFeed';
+
 const HomeScr = ({navigation}) => {
-    
+    const client = connect('28247c38kzxk', null, 'qa4k7yqz5v2zba594k4auvr62ezxm4jxkkjnuu9wek7nswhj5vm965jrbu7ufgwn');
+
         return (
             <View style={styles.container}>
                 <Text style={styles.title1}>Welcome to Hook</Text>
-                <Text style={styles.title1}>Test</Text>
-                <Button title="Here" onPress={()=> navigation.navigate("Settings")}><Text>"Here"</Text></Button>
+
+                {/* <Button title="Here" onPress={()=> navigation.navigate("Settings")}><Text>"Here"</Text></Button> */}
                 <Text style={styles.title1}>Hello World</Text>
             </View>
         );
@@ -39,30 +44,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 20,
         borderColor: 'black',
         
-    },
-    mainContainer: {
-        margin: 20,
-        // marginTop: STATUS_BAR_HEIGHT,
-        flex: 1,
-        display: 'flex',
-        backgroundColor: '#FFF',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 34,
-        letterSpacing: 1,
-        marginVertical: 30,
-    },
-    field: {
-        backgroundColor: '#F4F4F4',
-        borderWidth: 1,
-        // minWidth: MAX_FIELD_WIDTH,
-        borderRadius: 6,
-        borderColor: '#F4F4F4',
-        margin: 5,
-        paddingHorizontal: 20,
-        paddingVertical: 5,
     },
 
 });

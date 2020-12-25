@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { render } from 'react-dom';
-import LinearGradient from 'react-native-linear-gradient';
+// import {LinearGradient} from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
     StatusBar,
     StyleSheet,
@@ -14,6 +15,7 @@ import {
     SafeAreaView
 } from 'react-native';
 
+// import logoTest from '../assets/logoTest.png';
 
 class SignUpScr extends Component {
 
@@ -64,13 +66,19 @@ class SignUpScr extends Component {
         const { navigation } = this.props;
         const { userName, password, name, email, age } = this.state;
         return (
-            <KeyboardAwareScrollView
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                style={{ backgroundColor: "grey" }}
-            >
-                <SafeAreaView style={{ flex: 1 }}>
-                    <View style={styles.container}>
-                        {/* <LinearGradient colors={['#2974FA', '#38ABFD', '#43D4FF']} style={{flex:1}}> */}
+            // ['#2974FA', '#38ABFD', '#43D4FF']
+            <LinearGradient colors={['#009FFD', '#2A2A72']} style={{ flex: 1 }}>
+
+                <KeyboardAwareScrollView
+                    resetScrollToCoords={{ x: 0, y: 0 }}
+                >
+
+                    <SafeAreaView style={{ flex: 1 }}>
+                        <View style={styles.container}>
+                            <Image
+                                source={require('../assets/l')}
+                                style={{height: 50, width: 50}}
+                            />
 
                             <TextInput editable={false} style={styles.appTitle}>Register</TextInput>
 
@@ -101,27 +109,31 @@ class SignUpScr extends Component {
                                 />
                             </View>
 
-                            <Text>You have an account?
-                                <Button
+                            <Text style={{ color: 'white' }}>You have an account?
+                                <TouchableOpacity
                                     title="Login"
                                     onPress={() => navigation.navigate('Settings')}
+                                    style={styles.loginButton}
                                 >
-                                    <Text>
+                                    <TextInput editable={false} style={{ borderBottomWidth: 1, borderBottomColor: 'black', left: 4, alignSelf: 'center', top: 3, color: 'yellow' }}>
                                         Login
-                                    </Text>
-                                </Button>
+                                    </TextInput>
+                                </TouchableOpacity>
                             </Text>
 
                             <TouchableOpacity
-                                title={'Sign Up'}
+                                title={'Submit'}
                                 onPress={null}
-                                style={styles.loginButton}>
-                                <Text>Submit</Text>
+                                style={styles.submitButton}
+                            >
+                                <Text style={{ color: 'white' }}>Submit</Text>
                             </TouchableOpacity>
-                        {/* </LinearGradient> */}
-                    </View>
-                </SafeAreaView>
-            </KeyboardAwareScrollView>
+
+                        </View>
+                    </SafeAreaView>
+                </KeyboardAwareScrollView>
+            </LinearGradient>
+
         );
     }
 }
@@ -136,12 +148,18 @@ const styles = StyleSheet.create({
         flex: 1,
         // margin: 20,
     },
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5
+    },
     rowDisplay: {
         flexDirection: 'column'
 
     },
     appTitle: {
-        // textAlign: 'center',
+        color: 'white',
         fontSize: 30,
         borderBottomWidth: 3,
         // borderBottomColor: 'black',
@@ -156,7 +174,7 @@ const styles = StyleSheet.create({
     field: {
 
         borderBottomWidth: 1,
-        color: "#FFF",
+        // color: "#FFF",
         margin: 7,
         fontSize: 15,
         paddingTop: 10,
@@ -164,28 +182,19 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
     },
     loginButton: {
-        padding: 15,
-        // minWidth: MAX_FIELD_WIDTH,
-        backgroundColor: '#ACCBAC',
-        borderWidth: 1,
-        borderColor: '#ACCBAC',
-        borderRadius: 100,
-        marginHorizontal: 10,
-        marginVertical: 10,
-        elevation: 3,
-        // justifyContent: 'center',
-        // alignContent: 'center',
-        alignSelf: 'center'
+        paddingTop: 12,
     },
-    signupButton: {
-        padding: 10,
-        // minWidth: MAX_FIELD_WIDTH,
-        backgroundColor: '#FFF',
-        borderWidth: 1,
-        borderColor: '#ACCBAC',
-        borderRadius: 100,
-        marginHorizontal: 10,
-        marginVertical: 10,
+    submitButton: {
+        alignContent: 'center',
+        alignSelf: 'center',
+        top: 12,
+        padding: 2,
+        borderWidth: 2,
+        borderRadius: 12,
+        backgroundColor: 'black',
+        paddingLeft: 15,
+        paddingRight: 15,
+
     },
     signupButtonTxt: {
         fontSize: 15,

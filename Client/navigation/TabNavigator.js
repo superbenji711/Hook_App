@@ -10,8 +10,8 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import { createStackNavigator } from '@react-navigation/stack';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
 import HomeScr from '../views/HomeScr';
 import LoginScr from '../views/LoginScr';
 import SettingsScr from '../views/SettingsScr';
@@ -29,7 +29,9 @@ const TabNavigator = () => {
 
     const HomeStack = () => {
         return (
-            <Tab.Navigator>
+            <Tab.Navigator
+                tabBarOptions={()=>{}}
+            >
                 <Tab.Screen
                     name="Landing"
                     component={HomeScr}
@@ -49,7 +51,7 @@ const TabNavigator = () => {
     }
     const ProfileStack = () => {
         return (
-            <Tab.Navigator>
+            <Tab.Navigator            >
                 <Tab.Screen
                     name="Profile"
                     component={ProfileScr}
@@ -78,9 +80,32 @@ const TabNavigator = () => {
                     name="Profile"
                     component={ProfileScr} />
             </Tab.Navigator> */}
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeStack} />
-                <Stack.Screen name="Settings" component={SettingsScr} />
+            <Stack.Navigator
+                initialRouteName="Home"
+                headerMode="screen"
+                screenOptions={{
+                    headerTintColor: 'white',
+                    headerStyle:{backgroundColor: 'grey'}
+                    
+                }}
+
+                // mode="modal"
+             >
+                <Stack.Screen
+                    name="Home"
+                    component={HomeStack}
+                    options={{
+                        title: 'Home'
+                    }}
+                    
+                />
+                <Stack.Screen
+                    name="Settings"
+                    component={SettingsScr}
+                    options={{
+                        title: 'Settings'
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
