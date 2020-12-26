@@ -17,13 +17,15 @@ import LoginScr from '../views/LoginScr';
 import SettingsScr from '../views/SettingsScr';
 import ProfileScr from '../views/ProfileScr';
 import SignUpScr from '../views/SignUpScr';
-
+// import {}
 // const Stack = createStackNavigator();
 
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+// const HomeSatck = createStackNavigator();
 
 const TabNavigator = () => {
 
@@ -43,6 +45,12 @@ const TabNavigator = () => {
                 <Tab.Screen
                     name="Sign Up"
                     component={SignUpScr}
+                    options={{
+                        headerMode: 'none',
+                    }}
+                    screenOptions={{
+                        headerMode: 'none',
+                    }}
                 />
                 {/* <Tab.Screen name="Settings" component={SettingsScr} /> */}
 

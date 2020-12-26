@@ -76,8 +76,8 @@ class SignUpScr extends Component {
                     <SafeAreaView style={{ flex: 1 }}>
                         <View style={styles.container}>
                             <Image
-                                source={require('../assets/l')}
-                                style={{height: 50, width: 50}}
+                                source={require('../assets/logoTest.png')}
+                                style={{alignSelf: 'center', height: 70, width: 70}}
                             />
 
                             <TextInput editable={false} style={styles.appTitle}>Register</TextInput>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // backgroundColor: 'grey',
         padding: 50,
-        paddingTop: 70,
+        paddingTop: 50,
         flex: 1,
         // margin: 20,
     },
