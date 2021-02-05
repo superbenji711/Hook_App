@@ -6,7 +6,7 @@ const config = require("./config/config.js");
 const database = require("./database/Database.js");
 
 const userRoutes = require("./Routes/userRoute.js");
-// const postRoutes = require("./Routes/postRoute.js");
+const postRoutes = require("./Routes/postRoute.js");
 
 // // import path from 'path';
 // import express from 'express';
@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 
 //Routing
 app.use('/api/user', userRoutes);
-// app.use('/api/post', postRoutes);
+app.use('/api/post', postRoutes);
 
 
 

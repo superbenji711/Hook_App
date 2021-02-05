@@ -1,24 +1,23 @@
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './views/LoginScr';
 import TabNavigator from './navigation/TabNavigator'
 import UserContext from './util/UserContext';
 
 
 const App = () => {
   const [user, setUser] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- 
   return (
-    // <UserContext.Provider currUser={user, setUser}>
-    <View style={styles.container}>
-      <TabNavigator>
-      {/* <Login/> */}
-      </TabNavigator>
-    </View>
+    // <UserContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn}}>
+      <View style={styles.container}>
+        <TabNavigator>
+          {/* ///////////////// */}
+        </TabNavigator>
+      </View>
     // </UserContext.Provider>
   );
-  
+
 }
 
 const styles = StyleSheet.create({

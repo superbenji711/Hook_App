@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useContext } from 'react';
 import { render } from 'react-dom';
 import {
     StatusBar,
@@ -13,105 +13,160 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
 import HomeScr from '../views/HomeScr';
-import LoginScr from '../views/LoginScr';
 import SettingsScr from '../views/SettingsScr';
 import ProfileScr from '../views/ProfileScr';
 import SignUpScr from '../views/SignUpScr';
-// import {}
-// const Stack = createStackNavigator();
+import SignInScr from '../views/SignInScr';
+import MessageScr from '../views/MessageScr';
+import StatsScr from '../views/StatsScr';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+import UserContext from '../util/UserContext';
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// const HomeSatck = createStackNavigator();
-
 const TabNavigator = () => {
-
+    const user = useContext(UserContext);
+    // console.log(value)
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
     const HomeStack = () => {
         return (
-            <Tab.Navigator
-                tabBarOptions={()=>{}}
+            <Stack.Navigator
+            initialRouteName='Landing'
+                options={{
+                    headerStyle: { backgroundColor: 'grey' }
+                }}
             >
-                <Tab.Screen
+                <Stack.Screen
                     name="Landing"
                     component={HomeScr}
                 />
-                <Tab.Screen
-                    name="Profile"
-                    component={ProfileScr}
+                                <Stack.Screen
+                    name="Settings"
+                    component={SettingsScr}
                 />
-                <Tab.Screen
-                    name="Sign Up"
-                    component={SignUpScr}
-                    options={{
-                        headerMode: 'none',
-                    }}
-                    screenOptions={{
-                        headerMode: 'none',
-                    }}
+            </Stack.Navigator>
+        )
+    }
+    const MessageStack = () => {
+        return (
+            <Stack.Navigator
+            initialRouteName='Message'
+            >
+                <Stack.Screen
+                    name="Message"
+                    component={MessageScr}
                 />
-                {/* <Tab.Screen name="Settings" component={SettingsScr} /> */}
-
-            </Tab.Navigator>
+            </Stack.Navigator>
+        )
+    }
+    const StatStack = () => {
+        return (
+            <Stack.Navigator
+            initialRouteName='Stat'>
+                <Stack.Screen
+                    name="Stat"
+                    component={StatsScr}
+                />
+            </Stack.Navigator>
         )
     }
     const ProfileStack = () => {
         return (
-            <Tab.Navigator            >
-                <Tab.Screen
+            <Stack.Navigator
+                initialRouteName='Profile'
+            >
+                <Stack.Screen
                     name="Profile"
                     component={ProfileScr}
                 />
-                {/* //client screen */}
-                {/* <Tab.Screen name="Settings" component={SettingsScr} /> */}
-
-            </Tab.Navigator>
+            </Stack.Navigator>
         )
     }
 
-    return (
-        <NavigationContainer>
-            {/* <Tab.Navigator>
-                <Tab.Screen
-                    name="Home"
-                    component={HomeScr}
-                    options={{ tabBarLabel: 'Home!', display: 1 }} />
-                <Tab.Screen
-                    name="Login"
-                    component={LoginScr} />
-                <Tab.Screen
-                    name="Setting"
-                    component={SettingsScr} />
-                <Tab.Screen
-                    name="Profile"
-                    component={ProfileScr} />
-            </Tab.Navigator> */}
+    //Stack used for authentication and logging user In
+    const AuthStack = () => {
+        return (
             <Stack.Navigator
-                initialRouteName="Home"
+                initialRouteName='SignIn'>
+                <Stack.Screen
+                    name="SignUp"
+                    component={SignUpScr}
+                />
+                <Stack.Screen
+                    name="SignIn"
+                    component={SignInScr}
+                />
+            </Stack.Navigator>
+        )
+    }
+
+    return user.isLoggedIn == true ? (
+    // return(
+        <NavigationContainer>
+            <Tab.Navigator
+                // initialRouteName="Home"
                 headerMode="screen"
                 screenOptions={{
                     headerTintColor: 'white',
-                    headerStyle:{backgroundColor: 'grey'}
-                    
+                    headerStyle: { backgroundColor: 'grey' }
                 }}
-
-                // mode="modal"
-             >
-                <Stack.Screen
+                // tabBarOptions={{
+                //     activeTintColor: '#009FFD',
+                //     inactiveTintColor: '#bdc3c7',
+                // }}
+            >
+                <Tab.Screen
                     name="Home"
                     component={HomeStack}
                     options={{
-                        title: 'Home'
+                        title: 'Home',
+                        backgroundColor: 'green',
                     }}
-                    
                 />
-                <Stack.Screen
-                    name="Settings"
-                    component={SettingsScr}
+                <Tab.Screen
+                    name="Message"
+                    component={MessageStack}
                     options={{
-                        title: 'Settings'
+                        title: 'Message',
+                        backgroundColor: 'green',
+                    }}
+                />
+                <Tab.Screen
+                    name="Stat"
+                    component={StatStack}
+                    options={{
+                        title: 'Stat'
+                    }}
+                />
+                <Tab.Screen
+                    name="Profile"
+                    component={ProfileStack}
+                    options={{
+                        title: 'Profile'
+                    }}
+                />
+            </Tab.Navigator>
+
+        </NavigationContainer>
+    )
+    : //user no logged In
+    (
+        <NavigationContainer>
+            <Stack.Navigator
+                headerMode='none'
+                screenOptions={{
+                    headerTintColor: 'white',
+                    headerStyle: { backgroundColor: 'grey' }
+                }}
+            >
+                <Stack.Screen
+                    name="Sign"
+                    component={AuthStack}
+                    options={{
+                        title: 'sign'
                     }}
                 />
             </Stack.Navigator>
@@ -128,69 +183,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // margin: 20,
         flex: 1,
-    },
-    title1: {
-        textAlign: 'center',
-        fontSize: 30,
-        borderWidth: 10,
-        // ,
-        borderColor: 'black',
-        borderRadius: 15,
-    },
-    mainContainer: {
-        margin: 20,
-        flex: 1,
-        display: 'flex',
-        backgroundColor: '#FFF',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 34,
-        letterSpacing: 1,
-        marginVertical: 30,
-    },
-    field: {
-        backgroundColor: '#F4F4F4',
-        borderWidth: 1,
-        // minWidth: MAX_FIELD_WIDTH,
-        borderRadius: 6,
-        borderColor: '#F4F4F4',
-        margin: 5,
-        paddingHorizontal: 20,
-        paddingVertical: 5,
-    },
-    loginButton: {
-        padding: 10,
-        // minWidth: MAX_FIELD_WIDTH,
-        backgroundColor: '#ACCBAC',
-        borderWidth: 1,
-        borderColor: '#ACCBAC',
-        borderRadius: 100,
-        marginHorizontal: 10,
-        marginVertical: 10,
-        elevation: 3,
-    },
-    signupButton: {
-        padding: 10,
-        // minWidth: MAX_FIELD_WIDTH,
-        backgroundColor: '#FFF',
-        borderWidth: 1,
-        borderColor: '#ACCBAC',
-        borderRadius: 100,
-        marginHorizontal: 10,
-        marginVertical: 10,
-    },
-    signupButtonTxt: {
-        fontSize: 15,
-        alignSelf: 'center',
-        color: '#ACCBAC',
-    },
-    loginButtonText: {
-        // flex: 1,
-        fontSize: 15,
-        alignSelf: 'center',
-        color: '#fff',
     },
 });
 

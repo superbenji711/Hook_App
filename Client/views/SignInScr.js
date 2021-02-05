@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { render } from 'react-dom';
-import axios from 'axios';
+// import {LinearGradient} from 'react-native-linear-gradient';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
     StatusBar,
@@ -14,131 +14,74 @@ import {
     Button,
     SafeAreaView
 } from 'react-native';
-import UserAPI from '../api/UserApi'
-class SignUpScr extends Component {
+import UserContext from '../util/UserContext';
+
+// import logoTest from '../assets/logoTest.png';
+
+class SignInScr extends Component {
+    // static contextType = UserContext;
 
     constructor(props) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
+            name: "",
             userName: "",
             password: "",
-            confirmPassword: "",
             email: "",
             age: "",
             userPosts: []
         }
     }
 
+    signUp = async () => {
+        const { userName, password } = this.state;
 
+        { console.log(userName + " " + password) }
+    };
+
+    signIn = async () => {
+
+    }
 
     setPassword = async (response) => {
         this.setState({
             password: response,
         })
     };
-    setConfirmPassword = async (response) => {
-        this.setState({
-            confirmPassword: response,
-        })
-    }
     setUserName = async (response) => {
         this.setState({
             userName: response,
         })
     };
-    setFirstName = async (response) => {
-        this.setState({
-            firstName: response,
-        })
-    };
-    setLastName = async (response) => {
-        this.setState({
-            lastName: response,
-        })
-    };
-    setEmail = async (response) => {
-        this.setState({
-            email: response,
-        })
-    };
 
-    signUp = async () => {  //create user
-        const { userName, password, confirmPassword, firstName, lastName, email } = this.state;
-
-        if (confirmPassword != password) {
-            return (
-                <Text style={{ fontSize: 20 }}>
-                    {alert("Password must be the same!")}
-                </Text>
-            )
-        } else {
-            // console.log("complete");
-            const createUserResponse = await UserAPI.createUser(
-                {first: firstName, last: lastName}, 
-                userName, 
-                password, 
-                email
-            );
-
-            // console.log(`Successfully created user ${userName}`);
-        }
-    };
-
-
-
-
+    // componentDidMount() {
+    //     const isLoggedIn = this.context;
+    //     const setIsLoggedIn = this.context;
+    
+    // }
+    
     render() {
+        // const {isLoggedIn,setIsLoggedIn} = this.context;
+        // console.log(isLoggedIn);
         const { navigation } = this.props;
-        const { userName, password, confirmPassword, firstName, lastName, email } = this.state;
-
-
-
-
-        const signIn = async (props) => { // got to login screen
-
-            if (props.confirmPassword != props.password) {
-                return (
-                    <Text style={{ fontSize: 20 }}>
-                        {alert("Password must be the same!")}
-                    </Text>
-                )
-            } else {
-                // console.log("complete");
-                UserAPI.createUser(firstName, lastName, userName, password, email);
-            }
-        }
-
-
+        const { userName, password, name, email, age } = this.state;
         return (
-            // ['#2974FA', '#38ABFD', '#43D4FF']
             <LinearGradient colors={['#009FFD', '#2A2A72']} style={{ flex: 1 }}>
+
                 <KeyboardAwareScrollView
                     resetScrollToCoords={{ x: 0, y: 0 }}
                 >
+
                     <SafeAreaView style={{ flex: 1 }}>
                         <View style={styles.container}>
                             <Image
                                 source={require('../assets/logoTest.png')}
-                                style={{ alignSelf: 'center', height: 70, width: 70 }}
+                                style={{alignSelf: 'center', height: 70, width: 70}}
                             />
 
-                            <TextInput editable={false} style={styles.appTitle}>Register</TextInput>
+                            <TextInput editable={false} style={styles.appTitle}>Login</TextInput>
 
                             <View style={styles.rowDisplay}>
-                                <TextInput
-                                    style={styles.field}
-                                    placeholder={'First Name'}
-                                    onChangeText={this.setFirstName}
-                                    value={firstName}
-                                />
-                                <TextInput
-                                    style={styles.field}
-                                    placeholder={'Last Name'}
-                                    onChangeText={this.setLastName}
-                                    value={lastName}
-                                />
                                 <TextInput
                                     style={styles.field}
                                     placeholder={'Username'}
@@ -151,35 +94,23 @@ class SignUpScr extends Component {
                                     onChangeText={this.setPassword}
                                     value={password}
                                 />
-                                <TextInput
-                                    style={styles.field}
-                                    placeholder={'Confirm Password'}
-                                    onChangeText={this.setConfirmPassword}
-                                    value={confirmPassword}
-                                />
-                                <TextInput
-                                    style={styles.field}
-                                    placeholder={'Email'}
-                                    onChangeText={this.setEmail}
-                                    value={email}
-                                />
                             </View>
 
-                            <Text style={{ color: 'white' }}>You have an account?
+                            <Text style={{ color: 'white' }}>You don't have an account!
                                 <TouchableOpacity
                                     title="Login"
-                                    onPress={() => signIn({ userName, name, password, confirmPassword, email })}
+                                    onPress={() => navigation.navigate('SignUp')}
                                     style={styles.loginButton}
                                 >
                                     <TextInput editable={false} style={{ borderBottomWidth: 1, borderBottomColor: 'black', left: 4, alignSelf: 'center', top: 3, color: 'yellow' }}>
-                                        Login
+                                        Sign Up
                                     </TextInput>
                                 </TouchableOpacity>
                             </Text>
 
                             <TouchableOpacity
                                 title={'Submit'}
-                                onPress={this.signUp}
+                                // onPress={navigation.navigate("Profile"), setIsLoggedIn(true)}
                                 style={styles.submitButton}
                             >
                                 <Text style={{ color: 'white' }}>Submit</Text>
@@ -198,11 +129,10 @@ class SignUpScr extends Component {
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        // backgroundColor: 'grey',
+        alignContent: 'center',
         padding: 50,
-        paddingTop: 50,
+        paddingTop: 80,
         flex: 1,
-        // margin: 20,
     },
     linearGradient: {
         flex: 1,
@@ -267,4 +197,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default SignUpScr;
+export default SignInScr;
