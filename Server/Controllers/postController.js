@@ -1,60 +1,60 @@
 const mongoose = require('mongoose');
 const postSchema = require('../models/postSchema.js');
 const config = require('../config/config.js');
-const userSchema = require('../models/userSchema.js');
 
 
 
 
 exports.create = async (req, res) => {
 
-    return await new userSchema(req.body).save((err, posts) => {
+    const post = new postSchema({
+        title: req.body.title,
+        content: req.body.content,
+        type: req.body.type,
+        postedBy: req.body.postedBy, 
+        timeStamp: req.body.timeStamp,
+        numOfLikes:  req.body.numOfLikes, 
+        comments: req.body.comments
+    });
+
+    return await post.save((err) => {
         if (err) {
             console.log(err)
         }
-        res.send(posts);
+        console.log(post);
+        res.json(post);
     });
-
-
 
 }
 
 
 
-// exports.readById = async (req, res) => {
-//     await postSchema.findById(req.params._id, (err, docs) => {
-//         if (err) {
-//             res.send({
-//                 "error": "Something is wrong with readById"
-//             })
-//             throw err;
-//         }
-//         console.log(docs);
-//         res.json(docs);
-//     });
-// };
+exports.readById = async (req, res) => {
 
-// exports.read = async (req, res) => {
+//     const user = await userSchema.findById(req.params._id)
+//     .populate("Post")
+//     .exec();
+// if (!user) throw "User does not exist!";
 
+// res.send(user);
+    const post = await postSchema.findById(req.params._id, (err, docs) => {
+        if (err) {
+            res.send({
+                "error": "Something is wrong with readById"
+            })
+            throw err;
+        }
+        console.log(docs);
+        res.json(docs);
+    });
+};
 
-//     await postSchema.find({}, (err, docs) => {
-//         if (err) {
-//             res.send({
-//                 "error": "Something is wrong with read"
-//             })
-//             throw err;
+exports.read = async (req, res) => {
 
-//         }
-//         console.log(docs);
-//         res.json(docs);
-//     })
-//     // }).populate('postedBy')
-//     // .exec((error, posts)=> {
-//     //     console.log(JSON.stringify(posts, null, "\t", "what "))
-//     //     res.send(posts);
-//     //     console.log("works", post);
-//     // });
-// };
+    const listPost= await postSchema.find({}).exec();
+    res.send(listPost);
+
+};
 
 
 

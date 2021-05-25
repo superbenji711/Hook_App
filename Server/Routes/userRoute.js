@@ -14,7 +14,8 @@ userRouter.post('/', userController.create); //create user
 
 userRouter.put('/update/:_id', userController.update); //update by id
 
-userRouter.delete('/:_id', userController.remove); //delete by id
+// userRouter.delete('/', userController.remove); //delete by id
+userRouter.delete('/:_id', userController.removeById); //delete by id
 
 
 

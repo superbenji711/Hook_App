@@ -34,7 +34,7 @@ const TabNavigator = () => {
     const HomeStack = () => {
         return (
             <Stack.Navigator
-            initialRouteName='Landing'
+                initialRouteName='Landing'
                 options={{
                     headerStyle: { backgroundColor: 'grey' }
                 }}
@@ -43,7 +43,7 @@ const TabNavigator = () => {
                     name="Landing"
                     component={HomeScr}
                 />
-                                <Stack.Screen
+                <Stack.Screen
                     name="Settings"
                     component={SettingsScr}
                 />
@@ -53,19 +53,23 @@ const TabNavigator = () => {
     const MessageStack = () => {
         return (
             <Stack.Navigator
-            initialRouteName='Message'
+                initialRouteName='Message'
             >
                 <Stack.Screen
                     name="Message"
                     component={MessageScr}
                 />
+                {/* <Stack.Screen
+                    name="Profile"
+                    component={ProfileScr}
+                /> */}
             </Stack.Navigator>
         )
     }
     const StatStack = () => {
         return (
             <Stack.Navigator
-            initialRouteName='Stat'>
+                initialRouteName='Stat'>
                 <Stack.Screen
                     name="Stat"
                     component={StatsScr}
@@ -90,10 +94,19 @@ const TabNavigator = () => {
     const AuthStack = () => {
         return (
             <Stack.Navigator
-                initialRouteName='SignIn'>
+                initialRouteName='SignIn'
+                screenOptions={{
+                    headerTintColor: 'white',
+                        headerStyle: { backgroundColor: 'grey' },
+                }}
+                >
                 <Stack.Screen
-                    name="SignUp"
+                    name="Sign Up"
+                    screenOptions={{
+                        headerMode:"none"
+                    }}
                     component={SignUpScr}
+                   
                 />
                 <Stack.Screen
                     name="SignIn"
@@ -103,75 +116,94 @@ const TabNavigator = () => {
         )
     }
 
-    return user.isLoggedIn == true ? (
-    // return(
-        <NavigationContainer>
-            <Tab.Navigator
-                // initialRouteName="Home"
-                headerMode="screen"
-                screenOptions={{
-                    headerTintColor: 'white',
-                    headerStyle: { backgroundColor: 'grey' }
-                }}
+    return user.isLoggedIn == false ? 
+         //user not logged In
+        (
+            <NavigationContainer>
+                <Stack.Navigator
+                    headerMode="none"
+                    screenOptions={{
+                        headerTintColor: 'white',
+                        headerStyle: { backgroundColor: 'grey' },
+                        headerMode:false
+
+                    }}
+                    
+                >
+                    <Stack.Screen
+                        name="Welcome"
+                        component={AuthStack}
+                 
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
+        :
+        ( 
+            // return(
+            <NavigationContainer>
+                <Tab.Navigator
+                    // initialRouteName="Home"
+                    headerMode="screen"
+                    screenOptions={{
+                        headerTintColor: 'white',
+                        headerStyle: { backgroundColor: 'grey' }
+                    }}
                 // tabBarOptions={{
                 //     activeTintColor: '#009FFD',
                 //     inactiveTintColor: '#bdc3c7',
                 // }}
-            >
-                <Tab.Screen
-                    name="Home"
-                    component={HomeStack}
-                    options={{
-                        title: 'Home',
-                        backgroundColor: 'green',
-                    }}
-                />
-                <Tab.Screen
-                    name="Message"
-                    component={MessageStack}
-                    options={{
-                        title: 'Message',
-                        backgroundColor: 'green',
-                    }}
-                />
-                <Tab.Screen
-                    name="Stat"
-                    component={StatStack}
-                    options={{
-                        title: 'Stat'
-                    }}
-                />
-                <Tab.Screen
-                    name="Profile"
-                    component={ProfileStack}
-                    options={{
-                        title: 'Profile'
-                    }}
-                />
-            </Tab.Navigator>
-
-        </NavigationContainer>
-    )
-    : //user no logged In
-    (
-        <NavigationContainer>
-            <Stack.Navigator
-                headerMode='none'
-                screenOptions={{
-                    headerTintColor: 'white',
-                    headerStyle: { backgroundColor: 'grey' }
-                }}
-            >
-                <Stack.Screen
-                    name="Sign"
-                    component={AuthStack}
-                    options={{
-                        title: 'sign'
-                    }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+                >
+                    <Tab.Screen
+                        name="Home"
+                        component={HomeStack}
+    
+                        options={{
+                            tabBarIcon: ({ tintColor }) => (
+                                <Icon name="md-home-sharp" size={30} color="#2A2A72" />
+                            ),
+                            title: 'Home',
+                            backgroundColor: 'green',
+                        }}
+                    />
+                    {/* md-cloudy-night-sharp */}
+                    {/* md-cloud-sharp */}
+                    <Tab.Screen
+                        name="Message"
+                        component={MessageStack}
+                        options={{
+                            tabBarIcon: ({ tintColor }) => (
+                                <Icon name="md-cloudy-night-sharp" size={30} color="#2A2A72" />
+                            ),
+                            title: 'Message',
+                            backgroundColor: 'green',
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Stat"
+                        component={StatStack}
+                        options={{
+                            tabBarIcon: ({ tintColor }) => (
+                                <Icon name="md-stats-chart-sharp" size={30} color="#2A2A72" />
+                            ),
+                            title: 'Stat'
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Profile"
+                        component={ProfileStack}
+                        options={{
+                            tabBarIcon: ({ tintColor }) => (
+                                <Icon name="md-settings-sharp" size={30} color="#2A2A72" />
+                            ),
+                            title: 'Profile'
+                        }}
+    
+                    />
+                </Tab.Navigator>
+    
+            </NavigationContainer>
+        );
 
 }
 

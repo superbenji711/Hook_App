@@ -9,13 +9,11 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    // <UserContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn}}>
+    <UserContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn}}>
       <View style={styles.container}>
-        <TabNavigator>
-          {/* ///////////////// */}
-        </TabNavigator>
+        <TabNavigator/>
       </View>
-    // </UserContext.Provider>
+     </UserContext.Provider>
   );
 
 }

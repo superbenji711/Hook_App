@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 
 const userSchema = require('../models/userSchema.js');
-const config = require('../config/config.js');
 
 
 exports.create = async (req, res) => {
-    let first = req.body.name.first;
-    let last = req.body.name.last;
 
-    let user = new userSchema({
-        name: { first, last },
+    const user = new userSchema({
+        name: req.body.name,
         password: req.body.password,
         userName: req.body.userName,
         email: req.body.email,
-        userPosts: req.body.userPosts
+        userPosts: req.body.userPosts,
+        following: req.body.following,
+        followers: req.body.followers
     });
     console.log(user + " is user obj");
 
@@ -31,10 +30,10 @@ exports.getAll = async (req, res) => {
     res.send(listUser);
 }
 
-exports.get = async (req,res) => {
+exports.get = async (req, res) => {
     const user = await userSchema.findById(req.params._id)
-    .populate("Post")
-    .exec();
+        .populate("Post")
+        .exec();
     if (!user) throw "User does not exist!";
 
     res.send(user);
@@ -48,17 +47,28 @@ exports.update = async (req, res) => {
 
     userSchema.findByIdAndUpdate(req.params._id, user, {
 
-    },{ new: true })
+    }, { new: true })
 
 }
 
 exports.remove = async (req, res) => {
-    const resp = await userSchema.findByIdAndRemove(req.params._id)
-    .then(err =>{
-        return cosole.log(err);
-    });
-    
+    const resp = await userSchema.deleteMany({})
+        .then(err => {
+            return cosole.log(err);
+        });
+
     res.send(resp);
 };
+
+exports.removeById = async (req, res) => {
+    const resp = await userSchema.findOneAndDelete( req.body._id, (err)=>{
+        if(err){
+            console.log(err);
+        }
+    })
+    console.log(resp);
+    res.send(resp);
+};
+
 
 

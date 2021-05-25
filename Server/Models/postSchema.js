@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+  
 const postSchema = new mongoose.Schema ({
     title: {type: String, required: true},
     content: {type : String, required: true},
@@ -15,12 +16,15 @@ const postSchema = new mongoose.Schema ({
     },
     numOfLikes:  {type : Number, required: true}, 
     comments: [{
-        text: {type: String, require: true},
+        text: {type: String},
         numOfLikes: {type: Number},
         postedBy: {type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         } 
     }]
+
+//     following: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
+// followers: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
 })
 
 module.exports = Post = mongoose.model("Post", postSchema);

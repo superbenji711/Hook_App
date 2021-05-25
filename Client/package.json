@@ -17,7 +17,7 @@
     "expo": "~40.0.0",
     "expo-linear-gradient": "~8.4.0",
     "expo-status-bar": "~1.0.3",
-    "getstream": "^7.1.0",
+    "getstream": "^7.2.9",
     "passport": "^0.4.1",
     "react": "16.13.1",
     "react-avatar": "^3.9.7",
@@ -31,9 +31,10 @@
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^2.16.1",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-web": "~0.13.12",
+    "react-native-web": "^0.16.3",
     "react-navigation": "^4.4.3"
   },
+  "type":"module",
   "devDependencies": {
     "@babel/core": "~7.9.0"
   },

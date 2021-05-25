@@ -27,7 +27,9 @@ class SignUpScr extends Component {
             confirmPassword: "",
             email: "",
             age: "",
-            userPosts: []
+            userPosts: [],
+            followers: 0,
+            following: 0
         }
     }
 
@@ -65,7 +67,7 @@ class SignUpScr extends Component {
     };
 
     signUp = async () => {  //create user
-        const { userName, password, confirmPassword, firstName, lastName, email } = this.state;
+        const { firstName, lastName, userName,userPosts, password, confirmPassword, email, followers, following } = this.state;
 
         if (confirmPassword != password) {
             return (
@@ -74,16 +76,32 @@ class SignUpScr extends Component {
                 </Text>
             )
         } else {
-            // console.log("complete");
+            const name =   {
+                first: firstName, 
+                last: lastName
+            }
             const createUserResponse = await UserAPI.createUser(
-                {first: firstName, last: lastName}, 
+                name,
                 userName, 
                 password, 
-                email
+                email,
+                userPosts,
+                followers,
+                following
             );
+
+            console.log(createUserResponse);
 
             // console.log(`Successfully created user ${userName}`);
         }
+    };
+
+    allUsers = async () => {  //get all users
+         
+            const createUserResponse = await UserAPI.getUsers();
+
+            console.log(createUserResponse);
+
     };
 
 
@@ -91,28 +109,12 @@ class SignUpScr extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { userName, password, confirmPassword, firstName, lastName, email } = this.state;
+        const { userName, password, confirmPassword, firstName, lastName, email, followers, following } = this.state;
 
-
-
-
-        const signIn = async (props) => { // got to login screen
-
-            if (props.confirmPassword != props.password) {
-                return (
-                    <Text style={{ fontSize: 20 }}>
-                        {alert("Password must be the same!")}
-                    </Text>
-                )
-            } else {
-                // console.log("complete");
-                UserAPI.createUser(firstName, lastName, userName, password, email);
-            }
-        }
 
 
         return (
-            // ['#2974FA', '#38ABFD', '#43D4FF']
+            // ['#2974FA', '#38ABFD', '#43D4FF'] other colors for sign in page
             <LinearGradient colors={['#009FFD', '#2A2A72']} style={{ flex: 1 }}>
                 <KeyboardAwareScrollView
                     resetScrollToCoords={{ x: 0, y: 0 }}
@@ -168,7 +170,7 @@ class SignUpScr extends Component {
                             <Text style={{ color: 'white' }}>You have an account?
                                 <TouchableOpacity
                                     title="Login"
-                                    onPress={() => signIn({ userName, name, password, confirmPassword, email })}
+                                    onPress={() => navigation.navigate('SignIn')}//{() => signIn({ name:{firstName, lastName}, password, userName, confirmPassword, email, followers, following })}
                                     style={styles.loginButton}
                                 >
                                     <TextInput editable={false} style={{ borderBottomWidth: 1, borderBottomColor: 'black', left: 4, alignSelf: 'center', top: 3, color: 'yellow' }}>
@@ -179,11 +181,13 @@ class SignUpScr extends Component {
 
                             <TouchableOpacity
                                 title={'Submit'}
-                                onPress={this.signUp}
+                                onPress={this.allUsers}//{this.signUp}
                                 style={styles.submitButton}
                             >
                                 <Text style={{ color: 'white' }}>Submit</Text>
                             </TouchableOpacity>
+
+                            
 
                         </View>
                     </SafeAreaView>

@@ -99,7 +99,7 @@ class SignInScr extends Component {
                             <Text style={{ color: 'white' }}>You don't have an account!
                                 <TouchableOpacity
                                     title="Login"
-                                    onPress={() => navigation.navigate('SignUp')}
+                                    onPress={() => navigation.navigate('Sign Up')}
                                     style={styles.loginButton}
                                 >
                                     <TextInput editable={false} style={{ borderBottomWidth: 1, borderBottomColor: 'black', left: 4, alignSelf: 'center', top: 3, color: 'yellow' }}>

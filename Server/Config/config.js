@@ -1,7 +1,7 @@
-const node_env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
 const config = {
   development: {
-    baseUrl: "localhost",
+    // baseUrl: "localhost",
     port: process.env.PORT || 8080,
     uri: 'mongodb+srv://superbenji711:BenjiPrime711@benjicluster-3iz70.mongodb.net/test?retryWrites=true&w=majority'
   },
@@ -9,4 +9,4 @@ const config = {
     // port: process.env.
   }
 }
-module.exports = config[node_env];
+module.exports = config[env];

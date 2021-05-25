@@ -21,6 +21,10 @@ const HomeScr = ({navigation}) => {
 
         return isLoggedIn === true ?  (
             <View style={styles.container}>
+
+
+
+                
                 <Text style={styles.title1}>Welcome to Hook</Text>
 
                 <Button title="Here" onPress={()=> navigation.navigate("Profile")}><Text>"Here"</Text></Button>
